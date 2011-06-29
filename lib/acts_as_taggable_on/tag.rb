@@ -20,11 +20,11 @@ module ActsAsTaggableOn
     end
 
     def self.named(name)
-      where(["name #{like_operator} ?", name])
+      where(["cached_slug #{like_operator} ?", name])
     end
   
     def self.named_any(list)
-      where(list.map { |tag| sanitize_sql(["name #{like_operator} ?", tag.to_s]) }.join(" OR "))
+      where(list.map { |tag| sanitize_sql(["cached_slug #{like_operator} ?", tag.to_s]) }.join(" OR "))
     end
   
     def self.named_like(name)
