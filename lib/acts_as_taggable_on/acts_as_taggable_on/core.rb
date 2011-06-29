@@ -94,7 +94,7 @@ module ActsAsTaggableOn::Taggable
           joins << tagging_join
 
         else
-          tags = ActsAsTaggableOn::Tag.named_any(tag_list)
+          tags = ActsAsTaggableOn::Tag.cached_slug_any(tag_list)
           return scoped(:conditions => "1 = 0") unless tags.length == tag_list.length
 
           tags.each do |tag|
