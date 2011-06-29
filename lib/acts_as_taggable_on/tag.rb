@@ -20,11 +20,11 @@ module ActsAsTaggableOn
     end
 
     def self.named(name)
-      where(["cached_slug #{like_operator} ?", name])
+      where(["#{column_name} #{like_operator} ?", name])
     end
   
     def self.named_any(list)
-      where(list.map { |tag| sanitize_sql(["cached_slug #{like_operator} ?", tag.to_s]) }.join(" OR "))
+      where(list.map { |tag| sanitize_sql(["#{column_name} #{like_operator} ?", tag.to_s]) }.join(" OR "))
     end
   
     def self.named_like(name)
@@ -54,6 +54,10 @@ module ActsAsTaggableOn
       created_tags  = new_tag_names.map { |name| Tag.create(:name => name) }
 
       existing_tags + created_tags
+    end
+    
+    def column_name
+      self.column_names.include?("cached_slug") ? "cached_slug" : "name"
     end
 
     ### INSTANCE METHODS:
