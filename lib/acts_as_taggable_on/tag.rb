@@ -20,7 +20,7 @@ module ActsAsTaggableOn
     end
 
     def self.named(name)
-      where(["#{column_name} #{like_operator} ?", name])
+      where(["name #{like_operator} ?", name])
     end
   
     def self.named_any(list)
