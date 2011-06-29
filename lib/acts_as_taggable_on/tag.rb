@@ -56,7 +56,7 @@ module ActsAsTaggableOn
       existing_tags + created_tags
     end
     
-    def column_name
+    def self.column_name
       self.column_names.include?("cached_slug") ? "cached_slug" : "name"
     end
 
